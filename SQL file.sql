@@ -6,25 +6,25 @@ USE youtube_data;
 
 -- Create the channels table
 CREATE TABLE channels (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    channel_id VARCHAR(255) NOT NULL,
-    channel_name VARCHAR(255) NOT NULL,
-    subscribers BIGINT,
+    channel_id VARCHAR(255) PRIMARY KEY,
+    channel_name VARCHAR(255),
+    subscribers INT,
     total_videos INT,
-    playlist_id VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE INDEX (channel_id) -- Add index for foreign key
+    view_count BIGINT,
+    playlist_id VARCHAR(255)
 );
 
--- Create the videos table
+-- Create the videos table with foreign key reference to channels
 CREATE TABLE videos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    video_id VARCHAR(255) NOT NULL,
-    title VARCHAR(255),
-    likes BIGINT DEFAULT 0,
-    dislikes BIGINT DEFAULT 0,
-    comments BIGINT DEFAULT 0,
+    video_id VARCHAR(255) PRIMARY KEY,
     channel_id VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE
+    title VARCHAR(255),
+    published_at VARCHAR(255),
+    published_year VARCHAR(4),
+    view_count BIGINT,
+    likes INT,
+    dislikes INT,
+    comments INT,
+    duration INT,
+    FOREIGN KEY (channel_id) REFERENCES channels(channel_id)
 );
